@@ -1,7 +1,6 @@
 package com.senla.iaukhim.interceptorbootstarter.config;
 
 import com.senla.iaukhim.interceptorbootstarter.exceptions.InterceptorPropertiesException;
-import jakarta.annotation.PostConstruct;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -23,30 +22,12 @@ public class IntereceptorProperties {
 
     private String password;
 
-    @PostConstruct
-    public void checkProperties(){
+    public String getUri() {
         if(Objects.isNull(uri)){
-            composeUri();
-        }
-    }
-
-    private void composeUri() {
-        StringBuilder uriBuilder = new StringBuilder();
-        try{
-            uriBuilder.append("mongodb://");
-            uriBuilder.append(this.getUserName() + ":");
-            uriBuilder.append(this.getPassword() + "@");
-            uriBuilder.append(this.getHost() + ":");
-            uriBuilder.append(this.getPort() + "/");
-            uriBuilder.append(this.getDataBase());
-        }
-        catch (NullPointerException e){
             throw new InterceptorPropertiesException();
         }
-    }
-
-    public String getUri() {
         return uri;
+
     }
 
     public void setUri(String uri) {

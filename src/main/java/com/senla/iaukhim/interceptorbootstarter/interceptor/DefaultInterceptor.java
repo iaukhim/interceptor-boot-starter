@@ -22,7 +22,8 @@ public class DefaultInterceptor extends OncePerRequestFilter implements Intercep
 
     @Override
     public void handleRequest(HttpServletRequest request) {
-        requestInfoService.save(new RequestInfo(request));
+        RequestInfo requestInfo = requestInfoService.fromHttpServletRequest(request);
+        requestInfoService.save(requestInfo);
 
     }
 
